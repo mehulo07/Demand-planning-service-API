@@ -2,11 +2,15 @@ package com.bns.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
 public class JwtRequest implements Serializable {
 
 	private static final long serialVersionUID = 5926468583005150707L;
 	
+	@NotNull
 	private String username;
+	@NotNull
 	private String password;
 	
 	//default constructor for JSON Parsing

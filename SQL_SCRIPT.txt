@@ -1,0 +1,27 @@
+1 > Table name : DPS_USER_TAB
+
+Name         Null?    Type         
+------------ -------- ------------ 
+USER_ID      NOT NULL VARCHAR2(45) 
+USERNAME     NOT NULL VARCHAR2(45) 
+PASSWORD     NOT NULL VARCHAR2(45) 
+STATUS       NOT NULL VARCHAR2(45) 
+USER_ROLE_ID          VARCHAR2(50) 
+UPDATED_BY            VARCHAR2(50) 
+UPDATED_ON            DATE     
+
+insert into DPS_USER_TAB values ('bnssop','mehul.makwana@bnscolorama.co.uk','bnssop','active','R101','ifsapp',sysdate);
+
+
+2 > Table name : DPS_ROLE_TAB
+
+Name       Null?    Type          
+---------- -------- ------------- 
+ROLE_ID    NOT NULL VARCHAR2(45)  
+ROLE_NAME  NOT NULL VARCHAR2(100) 
+STATUS     NOT NULL VARCHAR2(50)  
+UPDATED_BY          VARCHAR2(50)  
+UPDATED_ON          DATE     
+
+query > insert into DPS_ROLE_TAB values ('R101','ROLE_USER','active','mehul',sysdate);
+
