@@ -1,6 +1,6 @@
 package com.bns;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,12 +8,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import io.jsonwebtoken.lang.Collections;
+import com.google.common.collect.Lists;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.ApiKeyVehicle;
+import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
@@ -30,7 +37,7 @@ public class SpringBootJwtApplication {
 	public Docket swaggerConfiguration() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.paths(PathSelectors.ant("/api/**"))
+				.paths(PathSelectors.ant("/DPS/V1/**"))
 				.apis(RequestHandlerSelectors.basePackage("com.bns"))
 				.build()
 				.apiInfo(apiDetails());
@@ -40,13 +47,51 @@ public class SpringBootJwtApplication {
 	
 	private ApiInfo apiDetails() {
 		return new ApiInfo(
-				"Demand Planning Service", "Docuentation of Demand Planning Rest service", "1.0",
+				"Demand Planning Service",
+				"Docuentation of Demand Planning Rest service", 
+				"1.0",
 				"Free to use", 
-				new springfox.documentation.service.Contact("Luxsh Technologies LTD.","http://luxshtech.com/", "mehul.makwana@bnscolorama.co.uk"),
+				new springfox.documentation.service.Contact(
+						"Luxsh Technologies LTD.",
+						"http://luxshtech.com/", 
+						"mehul.makwana@bnscolorama.co.uk"),
 				"API Liceance", 
 				"http://luxshtech.com/index.html", 
 				java.util.Collections.EMPTY_LIST
 				);
 	}
 	
+	
+	private ApiKey apiKey() {
+		return new ApiKey("AUTHORIZATION", "api_key", "header");
+	}
+	
+	 @Bean
+	 SecurityConfiguration security() {
+	 return new SecurityConfiguration(
+	 null,
+	 null,
+	 null, // realm Needed for authenticate button to work
+	 null, // appName Needed for authenticate button to work
+	 "Bearer ",// apiKeyValue
+	 ApiKeyVehicle.HEADER,
+	 "AUTHORIZATION", //apiKeyName
+	 null);
+	 }
+	 
+	 private SecurityContext securityContext() {
+		    return SecurityContext.builder()
+		        .securityReferences(defaultAuth())
+		        .forPaths(PathSelectors.regex("/DPS/V1/**"))
+		        .build();
+		  }
+	 
+	 List<SecurityReference> defaultAuth() {
+		    AuthorizationScope authorizationScope
+		        = new AuthorizationScope("global", "accessEverything");
+		    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+		    authorizationScopes[0] = authorizationScope;
+		    return Lists.newArrayList(
+		        new SecurityReference("AUTHORIZATION", authorizationScopes));
+		  }
 }

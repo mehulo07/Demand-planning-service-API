@@ -31,5 +31,4 @@ public class DPSAuthenticationProvider {
 		userRole = jdbcTemplate.queryForObject("select * from DPS_ROLE_TAB where role_id = ?", new Object[] {roleId} , new RoleMasterMapper());
 		return userRole;
 	}
-	
 }
