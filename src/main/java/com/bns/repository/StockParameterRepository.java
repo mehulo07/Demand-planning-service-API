@@ -10,9 +10,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bns.exception.ResourceNotFoundException;
 import com.bns.mapper.StockParameterMapper;
+import com.bns.model.ProductParamMaster;
 import com.bns.model.StockParameter;
 
 @PropertySource(value = "classpath:StockParameter.properties")
@@ -64,5 +66,4 @@ public class StockParameterRepository {
 		
 		return jdbcTemplate.update(propSource.getProperty("inactiveStockParameter") ,new Object[] {"mehul" , stockParamId }) > 0;
 	}
-	
 }

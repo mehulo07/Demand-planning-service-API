@@ -25,3 +25,12 @@ UPDATED_ON          DATE
 
 query > insert into DPS_ROLE_TAB values ('R101','ROLE_USER','active','mehul',sysdate);
 
+
+Date : 09/06/2020 (Told by sarfarazbhai)
+
+New Column in pricematrix
+
+ALTER TABLE pricematrix
+    ADD lead_time varchar2(20);
+    
+    

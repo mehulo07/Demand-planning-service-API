@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import com.bns.mapper.CategoryInfoMapper;
@@ -33,15 +36,18 @@ public class CategoryInfoRepository {
 	}
 
 	public boolean addCategory(CategoryInfo categoryInfo) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
 		return jdbcTemplate.update(propSource.getProperty("addCategory"), categoryInfo.getCategoryId() , categoryInfo.getCategoryName() , categoryInfo.getCategoryDescription()
-				,categoryInfo.getStatus()) > 0;
+				,categoryInfo.getStatus(),authentication.getName()) > 0;
 	}
 
 	public boolean inactiveCategory(String categoryId) throws SQLException {
-		return jdbcTemplate.update(propSource.getProperty("inactiveCategory"), categoryId) > 0;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		return jdbcTemplate.update(propSource.getProperty("inactiveCategory"),authentication.getName() , categoryId) > 0;
 	}
 
 	public boolean updateCategory(CategoryInfo categoryInfo, String categoryId) {
-		return jdbcTemplate.update(propSource.getProperty("updateCategory"), categoryInfo.getCategoryName() , categoryInfo.getCategoryDescription() , categoryInfo.getStatus() ,categoryId) > 0;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication(); 
+		return jdbcTemplate.update(propSource.getProperty("updateCategory"), categoryInfo.getCategoryName() , categoryInfo.getCategoryDescription() , categoryInfo.getStatus() , authentication.getName() ,categoryId) > 0;
 	}
 }
