@@ -87,7 +87,5 @@ public class DashboardRepository {
 		paramMap.put("id", Integer.parseInt(id));
 		
 		return namejdbcTemplate.update(query,paramMap) > 0;
-		
 	}
-	
 }

@@ -6,10 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+import com.bns.utility.DateUtility;
 import com.google.common.collect.Lists;
 
 import springfox.documentation.builders.PathSelectors;
@@ -27,18 +26,21 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-public class SpringBootJwtApplication extends SpringBootServletInitializer{
+//public class SpringBootJwtApplication extends SpringBootServletInitializer{
+public class SpringBootJwtApplication {
 
 	private static final Logger LOGGER = LogManager.getLogger(SpringBootJwtApplication.class);
+
+	/*
+	 * @Override protected SpringApplicationBuilder
+	 * configure(SpringApplicationBuilder springApplicationBuilder) { return
+	 * springApplicationBuilder.sources(SpringBootJwtApplication.class); }
+	 */
+	
 	public static void main(String[] args) {
 		LOGGER.info("test");
 		SpringApplication.run(SpringBootJwtApplication.class, args);
 	}
-	
-	 @Override
-	    protected SpringApplicationBuilder configure(SpringApplicationBuilder springApplicationBuilder) {
-	    	return springApplicationBuilder.sources(SpringBootJwtApplication.class);
-	    }
 
 	@Bean
 	public Docket swaggerConfiguration() {

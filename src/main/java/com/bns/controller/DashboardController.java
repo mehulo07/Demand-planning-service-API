@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bns.dto.DashboardClientRequest;
 import com.bns.dto.StockCalculationRequest;
 import com.bns.model.ProductCategoryAction;
+
 import com.bns.service.DashboardService;
 
 import net.sf.json.JSONArray;
@@ -37,9 +38,6 @@ public class DashboardController {
 	
 	@GetMapping(value = "/productCategoryWiseData")
 	public String getProductCategoryWiseData(@RequestBody StockCalculationRequest stockCalculationRequest) {
-		
-		System.out.println("product Category Value is :"+stockCalculationRequest.getCategoryList().get(0));
-		System.out.println("Stock Param is :"+stockCalculationRequest.getStockId());
 		
 		JSONObject obj = new JSONObject();
 		Double noOfPages = 1.0;
