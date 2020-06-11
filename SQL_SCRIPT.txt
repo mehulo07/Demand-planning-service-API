@@ -34,3 +34,46 @@ ALTER TABLE pricematrix
     ADD lead_time varchar2(20);
     
     
+    CREATE TABLE DPS_PROD_RATE_OF_SALE (
+    RATE_OF_PRODUCT_SALE_ID int NOT NULL,
+    PROD_CAT_ID varchar(255) NOT NULL,
+    PROD_CAT_NAME varchar(255) NOT NULL,
+    LAX_PART_NUMBER varchar(255) NOT NULL,
+    PRODUCT_NAME varchar(255),
+    STOCK_CURRENT_STOCK bigint,
+    STOCK_WEEK_OF_COVER bigint,
+	STOCK_PALLETS bigint,
+	IN_TRANSIT_STOCK_QTY_ORDERED bigint,
+    IN_TRANSIT_STOCK_QTY_RECEIVED bigint,
+    IN_TRANSIT_STOCK_WEEK_OF_COVER bigint ,
+    IN_TRANSIT_STOCK_PALLETS bigint,
+    IN_TRANSIT_STOCK_DELIVERY_DATE DATE,
+	IN_TRANSIT_STOCK_RECEIVED_DATE DATE,
+    LEAD_TIME bigint,
+    CURRENT_MONTH_PURCHASED_PRICE bigint,
+    CURRENT_MONTH_SUPPLIER_NAME varchar(255),
+    CURRENT_MONTH_COUNTRY varchar(255),
+    PREV_MONTH_PURCHASED_PRICE bigint ,
+	PREV_MONTH_SUPPLIER_NAME varchar(255),
+    PREV_MONTH_COUNTRY varchar(255),
+    UNITS_SOLD_PER_DAY  bigint,
+    UNITS_SOLD_PER_WEEK  bigint ,
+    AVG_PRICE bigint ,
+    TAX_RATE bigint ,
+    MONTH_ONE bigint,
+    MONTH_TWO bigint ,
+	MONTH_THREE bigint,
+    MONTH_FOUR bigint,
+    MONTH_FIVE bigint,
+    MONTH_SIX bigint,
+    MONTH_SEVEN bigint,
+    MONTH_EIGHT bigint,
+    MONTH_NINE bigint,
+    MONTH_TEN bigint,
+    MONTH_ELEVEN  bigint,
+    MONTH_TWELVE   bigint,
+TWELVE_WEEK_TREND_UNITS  bigint,
+     CONSTRAINT PK_Person PRIMARY KEY (RATE_OF_PRODUCT_SALE_ID)
+);
+    
+    
