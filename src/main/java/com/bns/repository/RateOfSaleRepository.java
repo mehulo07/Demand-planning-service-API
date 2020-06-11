@@ -28,7 +28,7 @@ public class RateOfSaleRepository {
 
 	public List<RateofSale> getAllRateOfSaleByCategoryID(String categoryId) {
 		return jdbcTemplate.query(propSource.getProperty("getAllRateOfSaleByCategoryID"), new Object[] {categoryId},new RateOfSaleMapper());
-	}
+		}
 	
 	public List<RateofSale> getAllRateOfSaleByCategoryIDAndProductName(String categoryId,String productName) {
 		return jdbcTemplate.query(propSource.getProperty("getAllRateOfSaleByCategoryIDAndProductName"), new Object[] {categoryId,productName},new RateOfSaleMapper());

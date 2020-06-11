@@ -17,6 +17,7 @@ public class RateOfSaleMapper implements RowMapper<RateofSale> {
 		rateofSale.setRateOfProductSaleId(rs.getString("RATE_OF_PRODUCT_SALE_ID") == null ? "" : rs.getString("RATE_OF_PRODUCT_SALE_ID"));
 		rateofSale.setProductCategoryId(rs.getString("PROD_CAT_ID") == null ? "" : rs.getString("PROD_CAT_ID"));
 		rateofSale.setProductCategoryName(rs.getString("PROD_CAT_NAME") == null ? "" : rs.getString("PROD_CAT_NAME"));
+		rateofSale.setProductName(rs.getString("PRODUCT_NAME") == null ? "" : rs.getString("PRODUCT_NAME"));
 		rateofSale.setLaxPartNumber(rs.getString("LAX_PART_NUMBER") == null ? "" : rs.getString("LAX_PART_NUMBER"));
 		rateofSale.setStockCurrentStock(rs.getString("STOCK_CURRENT_STOCK") == null ? "" : rs.getString("STOCK_CURRENT_STOCK"));
 		rateofSale.setWeekOfCover(rs.getString("STOCK_WEEK_OF_COVER") == null ? "" : rs.getString("STOCK_WEEK_OF_COVER"));
@@ -33,7 +34,7 @@ public class RateOfSaleMapper implements RowMapper<RateofSale> {
 		rateofSale.setCurrentMonthCountry(rs.getString("CURRENT_MONTH_COUNTRY") == null ? "" : rs.getString("CURRENT_MONTH_COUNTRY"));
 		rateofSale.setPrevMonthSupplierName(rs.getString("PREV_MONTH_SUPPLIER_NAME") == null ? "" : rs.getString("PREV_MONTH_SUPPLIER_NAME"));
 		rateofSale.setPrevMonthCountry(rs.getString("PREV_MONTH_COUNTRY") == null ? "" : rs.getString("PREV_MONTH_COUNTRY"));
-		rateofSale.setUnitSoldPerDay(rs.getString("UNITS_SOLD_PER_DAY ") == null ? "" : rs.getString("UNITS_SOLD_PER_DAY"));
+		rateofSale.setUnitSoldPerDay(rs.getString("UNITS_SOLD_PER_DAY") == null ? "" : rs.getString("UNITS_SOLD_PER_DAY"));
 		rateofSale.setUnitSoldPerWeek(rs.getString("UNITS_SOLD_PER_WEEK") == null ? "" : rs.getString("UNITS_SOLD_PER_WEEK"));
 		rateofSale.setTwelveWeekTrendUnit(rs.getString("TWELVE_WEEK_TREND_UNITS") == null ? "" : rs.getString("TWELVE_WEEK_TREND_UNITS"));
 		rateofSale.setAvgPrice(rs.getString("AVG_PRICE") == null ? "" : rs.getString("AVG_PRICE"));

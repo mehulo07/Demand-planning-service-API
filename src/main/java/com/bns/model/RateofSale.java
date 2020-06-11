@@ -16,7 +16,17 @@ public class RateofSale implements Serializable {
 	private String productCategoryId;
 		
 	private String productCategoryName;
+	
+	private String productName;
 		
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	private String laxPartNumber;
 		
 	private String stockCurrentStock;

@@ -28,7 +28,7 @@ public class RateOfSaleController {
 		return rateOfSaleService.getRateOfSaleListByCategoryID(categoryId);
 	}
 	
-	@GetMapping("search/{categoryId}/{productName}")
+	@GetMapping("/search/{categoryId}/{productName}")
 	@ApiModelProperty(value = "Get All Record  ",notes = "Get All Record based on CategoryId Searched Product Name")
 	public List<RateofSale> getAllRateOfSaleSearchedRecord(@PathVariable(value="categoryId") String categoryId,
 			@PathVariable(value="productName") String productName)
