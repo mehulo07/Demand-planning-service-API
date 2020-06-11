@@ -32,6 +32,7 @@ public class ColorMasterController {
 	@GetMapping("/")
 	@ApiModelProperty(value = "Get All color",notes = "Retrive all active color list to client.")
 	public List<ColorMaster> getAllColor(){
+		System.out.println("write by vijay");
 		return colorMasterService.getAllColorList();
 	}
 	
