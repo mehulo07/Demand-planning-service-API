@@ -1,19 +1,23 @@
 package com.bns.repository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 
+import com.bns.mapper.TransactionSeqMapper;
 import com.bns.model.ProductInfo;
 import com.bns.model.ProductParamMaster;
+import com.bns.model.TransactionSeq;
 import com.bns.utility.DpsConstant;
 
 @PropertySource(value =  "classpath:productSetting.properties")
@@ -27,7 +31,7 @@ public class StockLevelRepossitory {
 	private Environment propSource;
 
 	@Transactional
-	public ProductParamMaster save(ProductParamMaster productParamMaster , ProductInfo productInfo) {
+	public ProductParamMaster save(ProductParamMaster productParamMaster , List<ProductInfo> productInfo) {
 		try {
 	        Object[] params = new Object[] { productParamMaster.getTransaction_id(), productParamMaster.getRef_prod_cat_id(), 
 	        		productParamMaster.getCatalog_no(), productParamMaster.getUpdated_by(),DpsConstant.STATUS_ACTIVE};
@@ -37,6 +41,7 @@ public class StockLevelRepossitory {
 
 			
 			if(row>0) {
+				
 				int [] batch = jdbcTemplate.batchUpdate(propSource.getProperty("insertProductSettingDetail"),new BatchPreparedStatementSetter() {
 			
 					@Override
@@ -53,10 +58,30 @@ public class StockLevelRepossitory {
 				});
 			}
 			
-			//Update in price matrix
-			Object[] pricematrixParam = new Object[] { productInfo.getNcsoProfitableFlag() , productInfo.getLeadTime() ,productInfo.getCatalogNo(), productInfo.getCategory() , productInfo.getContract()};
-			
-			int pricematrixUpdateCount = jdbcTemplate.update(propSource.getProperty("updateProfitNcsoLeadTime"),pricematrixParam,types);
+			if(productInfo != null && productInfo.size() > 1) {
+				//Update in price matrix
+				Object[] pricematrixParam = new Object[] { productInfo.get(0).getNcsoProfitableFlag() , productInfo.get(0).getLeadTime() ,productInfo.get(0).getCatalogNo(), productInfo.get(0).getCategory() , productInfo.get(0).getContract()};
+				int pricematrixUpdateCount = jdbcTemplate.update(propSource.getProperty("updateProfitNcsoLeadTime"),pricematrixParam,types);
+			}else {
+				
+				int [] batch = jdbcTemplate.batchUpdate(propSource.getProperty("updateProfitNcsoLeadTime"),new BatchPreparedStatementSetter() {
+					
+					@Override
+					public void setValues(PreparedStatement ps, int i) throws SQLException {
+						ps.setString(1, productInfo.get(0).getNcsoProfitableFlag());
+						ps.setString(2, productInfo.get(0).getLeadTime());
+						ps.setString(3, productInfo.get(0).getCatalogNo());
+						ps.setString(4, productInfo.get(0).getCategory());
+						ps.setString(5, productInfo.get(0).getContract());
+						
+					}
+					
+					public int getBatchSize() {
+						return productInfo.size();
+					}
+				});
+				
+			}
 			
 		}catch (Exception e) {
 			System.out.println("EXCEPTION WHILE SAVING DATA");
@@ -96,4 +121,11 @@ public class StockLevelRepossitory {
 			return false;
 		}
 	}
+
+	public List<TransactionSeq> getTransactionListByCategoryId(Object categoryId , Date firsDay , Date lastDay) {
+		List<TransactionSeq> transactionIdList = null;
+			transactionIdList =  jdbcTemplate.query(propSource.getProperty("getTransactionIdByCategory"), new Object[] {(String)categoryId, firsDay, lastDay}, new TransactionSeqMapper());	
+		return transactionIdList;
+	}
+	
 }

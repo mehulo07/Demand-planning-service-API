@@ -44,25 +44,21 @@ public class SupplierInfoRepository {
 		MapSqlParameterSource parameters = new MapSqlParameterSource();
 	    parameters.addValue("startDate", firstDayOfYear);
 	    parameters.addValue("endDate", lastDayOfYear);
-		try {
-		
-			for(int i=1 ; i <= filterParam.getCategoryId().size() ; i++) {
-				if(i==filterParam.getCategoryId().size()) {
-					queryBuilder = queryBuilder  + "IFSAPP.DPS_COM_API.GET_PROD_CAT_DESC('"+filterParam.getCategoryId().get(i--)+"')";
-				}else {
-					queryBuilder = queryBuilder  + "IFSAPP.DPS_COM_API.GET_PROD_CAT_DESC('"+filterParam.getCategoryId().get(i--)+"'),";
-				}
-			}
+		int i =0;
 			
+			while(i < filterParam.getCategoryId().size()) {
+				if(i==filterParam.getCategoryId().size()-1) {
+					queryBuilder = queryBuilder  + "IFSAPP.DPS_COM_API.GET_PROD_CAT_DESC('"+filterParam.getCategoryId().get(i)+"')";
+				}else {
+					queryBuilder = queryBuilder  + "IFSAPP.DPS_COM_API.GET_PROD_CAT_DESC('"+filterParam.getCategoryId().get(i)+"'),";
+				}
+				i++;
+			}
 			System.out.println("befour query is :"+query);
 			query = query.replace("@categoryDesc", queryBuilder);
 			System.out.println("after query is :"+query);
 			
 			return namedParameterJdbcTemplate.queryForObject(query, parameters , Long.class);
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 	
 }

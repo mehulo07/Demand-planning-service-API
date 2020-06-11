@@ -37,7 +37,7 @@ public class PieChartRepository {
 		    parameters.addValue("categoryParam", filterParam.getCategoryId());
 			
 			System.out.println("Final uery for pie chart data :"+query);
-			returnObj = namedParameterJdbcTemplate.query(query , new PieChartDataMapper());
+			returnObj = namedParameterJdbcTemplate.query(query ,parameters , new PieChartDataMapper());
 			
 		}catch(Exception e) {
 			e.printStackTrace();

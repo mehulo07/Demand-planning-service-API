@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bns.mapper.ProductInfoMapper;
+import com.bns.mapper.StringDataMapper;
 import com.bns.model.ProductInfo;
 
 @PropertySource(value = "classpath:productSetting.properties")
@@ -26,4 +27,10 @@ public class ProductInfoRepository {
 		return jdbcTemplate.query(propSource.getProperty("getProductList"),new Object[] { productInfoBean.getContract() , productInfoBean.getCategory() , tempProdName , productInfoBean.getLimit() }, new ProductInfoMapper());	
 	}
 	
+	
+	public String getProductNameByCatalogNo(Object catalogNo, Object contract) {
+		String productDesc = null;
+			productDesc = jdbcTemplate.queryForObject(propSource.getProperty("getProductName"), new Object[] { (String) contract , (String) catalogNo},  new StringDataMapper());
+		return productDesc;
+	}
 }

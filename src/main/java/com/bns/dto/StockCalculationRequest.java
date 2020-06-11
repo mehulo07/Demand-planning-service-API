@@ -19,13 +19,16 @@ public class StockCalculationRequest implements Serializable{
 	private String searchString;
 	private String sortOrder;
 	private String sortBy;
+	private List<Integer> monthArr;
 	
 	public StockCalculationRequest() {
 	
 	}
 
 	public StockCalculationRequest(List<String> categoryList, String stockId, boolean isSearch, int currentPage,
-			int rowSize, String searchField, String searchString, String sortOrder, String sortBy) {
+			int rowSize, String searchField, String searchString, String sortOrder, String sortBy,
+			List<Integer> monthArr) {
+		super();
 		this.categoryList = categoryList;
 		this.stockId = stockId;
 		this.isSearch = isSearch;
@@ -35,7 +38,10 @@ public class StockCalculationRequest implements Serializable{
 		this.searchString = searchString;
 		this.sortOrder = sortOrder;
 		this.sortBy = sortBy;
+		this.monthArr = monthArr;
 	}
+
+
 
 	public List<String> getCategoryList() {
 		return categoryList;
@@ -109,11 +115,19 @@ public class StockCalculationRequest implements Serializable{
 		this.sortBy = sortBy;
 	}
 
+	public List<Integer> getMonthArr() {
+		return monthArr;
+	}
+
+	public void setMonthArr(List<Integer> monthArr) {
+		this.monthArr = monthArr;
+	}
+
 	@Override
 	public String toString() {
 		return "StockCalculationRequest [categoryList=" + categoryList + ", stockId=" + stockId + ", isSearch="
 				+ isSearch + ", currentPage=" + currentPage + ", rowSize=" + rowSize + ", searchField=" + searchField
-				+ ", searchString=" + searchString + ", sortOrder=" + sortOrder + ", sortBy=" + sortBy + "]";
+				+ ", searchString=" + searchString + ", sortOrder=" + sortOrder + ", sortBy=" + sortBy + ", monthArr="
+				+ monthArr + "]";
 	}
-	
 }
